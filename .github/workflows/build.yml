@@ -48,13 +48,17 @@ jobs:
           release_name: 'latest'
           suppress_errors: true
 
+      - name: "Get Date"
+        run: |
+          mv output/debian-stable-live-nano-x86_64-${{ env.ISOSTAMP }}.iso output/debian-stable-live-nano-x86_64-latest.iso
+
       - name: "Publish"
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
           automatic_release_tag: "latest"
-          title: "Debian Stable Live Nano ISO"
+          title: "LATEST: Debian Stable Live Nano ISO"
           files: |
             output/debian-stable-live-nano-x86_64-latest.iso
             output/packages.txt
