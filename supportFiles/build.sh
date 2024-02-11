@@ -1,5 +1,6 @@
-#!/bin/bash
+#!/usr/bin/bash
 # Based from https://willhaley.com/blog/custom-debian-live-environment/
+set -e
 
 echo Install required tools
 apt-get update
@@ -9,9 +10,11 @@ echo Create directory where we will make the image
 mkdir -p $HOME/LIVE_BOOT
 
 echo Install Debian
-debootstrap --arch=amd64 --variant=minbase buster $HOME/LIVE_BOOT/chroot http://ftp.us.debian.org/debian/
+debootstrap --arch=amd64 --variant=minbase stable $HOME/LIVE_BOOT/chroot http://ftp.us.debian.org/debian/
 
 echo Copy supporting documents into the chroot
+touch /supportFiles/customize.sh # Ensure customize.sh exists before copying
+cp -v /supportFiles/customize.sh $HOME/LIVE_BOOT/chroot/customize.sh
 cp -v /supportFiles/installChroot.sh $HOME/LIVE_BOOT/chroot/installChroot.sh
 cp -v /supportFiles/sources.list $HOME/LIVE_BOOT/chroot/etc/apt/sources.list
 
@@ -28,6 +31,7 @@ rm -v $HOME/LIVE_BOOT/chroot/installChroot.sh
 mv -v $HOME/LIVE_BOOT/chroot/packages.txt /output/packages.txt
 
 echo Copy in systemd-networkd config
+mkdir -p $HOME/LIVE_BOOT/chroot/etc/systemd/network/
 cp -v /supportFiles/99-dhcp-en.network $HOME/LIVE_BOOT/chroot/etc/systemd/network/99-dhcp-en.network
 chown -v root:root $HOME/LIVE_BOOT/chroot/etc/systemd/network/99-dhcp-en.network
 chmod -v 644 $HOME/LIVE_BOOT/chroot/etc/systemd/network/99-dhcp-en.network
@@ -94,6 +98,7 @@ xorriso \
     "${HOME}/LIVE_BOOT/staging"
 
 echo Copy output
-cp -v $HOME/LIVE_BOOT/debian-custom.iso /output/debian10-live-minimal-x86_64.iso
-chmod -v 666 /output/debian10-live-minimal-x86_64.iso
+ISOSTAMP=$(date +'%Y%m')
+cp -v $HOME/LIVE_BOOT/debian-custom.iso "/output/debian-stable-live-nano-x86_64-$ISOSTAMP.iso"
+chmod -v 666 "/output/debian-stable-live-nano-x86_64-$ISOSTAMP.iso"
 ls -lah /output

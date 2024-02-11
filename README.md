@@ -1,65 +1,27 @@
-# debian-live
-Builds a Debian 10 (Buster) Live x86-64 ISO monthly using GitHub Actions. Used primarily for backing up and restoring Linux and Windows based systems.
+# Debian-Live-Nano
 
+Builds a Debian Live (stable) x86-64 ISO monthly using GitHub Actions.
 
 ## Default Password
+
 The default username and password is root / toor.
 
+## Install
 
-## Installation Options
-1. Burn / mount the ISO
-2. Copy the files to a FAT32 formatted USB drive
-    * Only works on modern UEFI based systems
-3. Use `dd` to flash the ISO to a USB drive
-    * Would only recommend for older BIOS based systems
+- Burn ISO to CD
+- Flash iso to USB with tools like [balenaEtcher](https://etcher.balena.io/), [rufus](https://rufus.ie/en/), or multi
+  boot tools like [ventoy](https://www.ventoy.net/en/index.html)
 
+## Customization
 
+Use the `./build.sh` script or `./build.ps1` script in the project root to build an ISO from scratch. Requires docker.
 
-## Tools
-
-cifs-utils - Mount `Samba` and `Windows` file shares
-
-ddrescue - Backup and restore failing drives
-
-gdisk - `gpt` compatible `fdisk` toolset
-
-nfs-common - mount `nfs` file shares
-
-ntfs-3g - Manage `NTFS` formatted drives
-
-wimtools - Create, restore, and manage `WIM` files for Windows based systems.
-
-
-
-## Installed Packages
-* apt-utils
-* bash-completion
-* cifs-utils
-* curl
-* dbus
-* dosfstools
-* firmware-linux-free
-* gddrescue
-* gdisk
-* iputils-ping
-* isc-dhcp-client
-* less
-* linux-image-amd64
-* live-boot
-* nfs-common
-* ntfs-3g
-* openssh-client
-* open-vm-tools
-* procps
-* systemd-sysv
-* vim
-* wimtools
-* wget
-
-For a full list of installed packages, see `packages.txt` in the release.
-
-
-
+- Create supportFiles/customize.sh and add logic as desired to customize this build (add packages, set locale, etc)
+- Use iso with tools like [cubic](https://github.com/PJ-Singh-001/Cubic) to build your own distro
 
 ## References
+
 This image was built based from the instructions found at https://willhaley.com/blog/custom-debian-live-environment/
+
+This repo was forked from [dpowers86/debian-live](https://github.com/dpowers86/debian-live]) authored by
+[dpowers86](https://github.com/dpowers86).
