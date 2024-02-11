@@ -21,8 +21,7 @@ jobs:
     steps:
       - name: "Get Date"
         run: |
-          echo "DATESTAMP=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
-          echo "ISOSTAMP=$(date +'%Y%m')" >> $GITHUB_ENV 
+          echo "DATESTAMP=$(date +'%Y%m')" >> $GITHUB_ENV
 
       - name: "Checking out git repository"
         uses: actions/checkout@v2
@@ -30,6 +29,20 @@ jobs:
       - name: "Build Image"
         run: |
           ./build.sh
+
+      - name: "Delete latest release."
+        uses: cb80/delrel@latest
+        continue-on-error: true
+        with:
+          tag: latest
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Delete date-stamped tag if it already exists."
+        uses: cb80/delrel@latest
+        continue-on-error: true
+        with:
+          tag: "${{ env.DATESTAMP }}"
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "Publish Date-Time"
         uses: "marvinpinto/action-automatic-releases@latest"
@@ -39,21 +52,14 @@ jobs:
           automatic_release_tag: "${{ env.DATESTAMP }}"
           title: "Debian Stable Live Nano ISO"
           files: |
-            output/debian-stable-live-nano-x86_64-${{ env.ISOSTAMP }}.iso
+            output/debian-stable-live-nano-x86_64-${{ env.DATESTAMP }}.iso
             output/packages.txt
 
-      - name: "Delete latest release."
-        uses: cb80/delrel@latest
-        continue-on-error: true
-        with:
-          tag: latest
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: "Get Date"
+      - name: "Rename the iso to use latest instead of a datetime"
         run: |
-          mv output/debian-stable-live-nano-x86_64-${{ env.ISOSTAMP }}.iso output/debian-stable-live-nano-x86_64-latest.iso
+          mv output/debian-stable-live-nano-x86_64-${{ env.DATESTAMP }}.iso output/debian-stable-live-nano-x86_64-latest.iso
 
-      - name: "Publish"
+      - name: "Publish latest"
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"

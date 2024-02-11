@@ -3,14 +3,13 @@
 set -e
 
 echo Set hostname
-echo "debian-live" > /etc/hostname
+echo "debian-live-nano" > /etc/hostname
 
 # Set as non-interactive so apt does not prompt for user input
 export DEBIAN_FRONTEND=noninteractive
 
 echo Install security updates and apt-utils
 apt-get update
-apt-get -y install apt-utils
 apt-get -y upgrade
 
 # Run customzations before clean
@@ -34,4 +33,4 @@ echo Remove machine-id
 rm /etc/machine-id
 
 echo List installed packages
-dpkg --get-selections|tee /packages.txt
+dpkg-query -W -f='${Package}\t${Version}\t${Installed-Size}\n' | sort -k3 -n | tee /packages.txt
