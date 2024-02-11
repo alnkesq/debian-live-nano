@@ -36,10 +36,6 @@ cp -v /supportFiles/99-dhcp-en.network $HOME/LIVE_BOOT/chroot/etc/systemd/networ
 chown -v root:root $HOME/LIVE_BOOT/chroot/etc/systemd/network/99-dhcp-en.network
 chmod -v 644 $HOME/LIVE_BOOT/chroot/etc/systemd/network/99-dhcp-en.network
 
-echo Enable autologin
-mkdir -p -v $HOME/LIVE_BOOT/chroot/etc/systemd/system/getty@tty1.service.d/
-cp -v /supportFiles/override.conf $HOME/LIVE_BOOT/chroot/etc/systemd/system/getty@tty1.service.d/override.conf
-
 echo Unmounting dev / proc / sys
 umount $HOME/LIVE_BOOT/chroot/proc
 umount $HOME/LIVE_BOOT/chroot/dev
