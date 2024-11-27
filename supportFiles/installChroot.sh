@@ -16,7 +16,7 @@ apt-get -y upgrade
 /bin/bash /customize.sh
 
 echo Install packages
-apt-get install -y --no-install-recommends linux-image-amd64 live-boot systemd-sysv systemd-resolved
+apt-get install -y --no-install-recommends linux-image-amd64 live-boot systemd-sysv systemd-resolved ntp
 
 echo Clean apt post-install
 apt-get clean
@@ -25,6 +25,8 @@ echo Enable systemd-networkd as network manager
 systemctl enable systemd-networkd
 echo Enable systemd-resolved as dns manager
 systemctl enable systemd-resolved
+echo Enable ntp
+systemctl enable ntp
 
 echo Set root password
 echo "root:toor" | chpasswd
