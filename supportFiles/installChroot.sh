@@ -12,11 +12,14 @@ echo Install security updates and apt-utils
 apt-get update
 apt-get -y upgrade
 
-# Run customzations before clean
-/bin/bash /customize.sh
 
 echo Install packages
 apt-get install -y --no-install-recommends linux-image-amd64 live-boot systemd-sysv systemd-resolved systemd-timesyncd
+
+/bin/bash /customize.sh
+/bin/bash /customize2.sh
+
+mv /etc/resolv-after-systemd.conf /etc/resolv.conf
 
 echo Clean apt post-install
 apt-get clean

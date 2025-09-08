@@ -1,1 +1,6 @@
 **/output
+supportFiles/debian-custom.iso
+.gitignore
+supportFiles/debootstraped.tar.gz
+supportFiles/installed-package-sizes.txt
+differ/diff.diff
