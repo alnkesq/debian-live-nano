@@ -5,7 +5,7 @@ mv -v /etc/resolv.conf /etc/resolv-after-systemd.conf
 mv -v /etc/resolv-external.conf /etc/resolv.conf
 
 #  --no-install-recommends
-apt-get install -y ntfs-3g dislocker nano curl wget util-linux openssh-server htop 7zip unzip ca-certificates tmux mercurial git libicu72 ripgrep
+apt-get install -y ntfs-3g dislocker nano curl wget util-linux openssh-server htop 7zip unzip ca-certificates tmux mercurial git ripgrep
 
 
 if [ ! -e /bin/7z ]; then
