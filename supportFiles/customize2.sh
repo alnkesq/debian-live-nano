@@ -2,7 +2,7 @@
 # Generated via RemoteConfigurator
 set -e
 cd /root
-curl -fsSL https://builds.dotnet.microsoft.com/dotnet/Sdk/9.0.201/dotnet-sdk-9.0.201-linux-x64.tar.gz -o dotnet-sdk.tar.gz
+curl -fsSL https://builds.dotnet.microsoft.com/dotnet/Sdk/10.0.100-rc.1.25451.107/dotnet-sdk-10.0.100-rc.1.25451.107-linux-x64.tar.gz -o dotnet-sdk.tar.gz
 rm -rf /root/dotnet
 mkdir -p /root/dotnet
 tar zxf dotnet-sdk.tar.gz -C /root/dotnet
@@ -12,8 +12,8 @@ chmod +x /bin/dotnet
 sh -c "  echo \"\$2\" >> \"\$1\" " _ /root/.bashrc "export PATH=\$PATH:/root/.dotnet/tools"
 sh -c "  echo \"\$2\" >> \"\$1\" " _ /root/.bashrc "export DOTNET_ROOT=/root/dotnet"
 sh -c "  echo \"\$2\" >> \"\$1\" " _ /root/.bashrc "export DOTNET_CLI_TELEMETRY_OPTOUT=1"
-curl -fsSL https://github.com/duckdb/duckdb/releases/download/v1.3.2/duckdb_cli-linux-amd64.zip -o duckdb-cli.zip
-curl -fsSL https://github.com/duckdb/duckdb/releases/download/v1.3.2/libduckdb-linux-amd64.zip -o libduckdb.zip
+curl -fsSL https://github.com/duckdb/duckdb/releases/download/v1.4.0/duckdb_cli-linux-amd64.zip -o duckdb-cli.zip
+curl -fsSL https://github.com/duckdb/duckdb/releases/download/v1.4.0/libduckdb-linux-amd64.zip -o libduckdb.zip
 unzip -o duckdb-cli.zip -d duckdb
 unzip -o libduckdb.zip -d duckdb
 rm libduckdb.zip
@@ -33,10 +33,10 @@ rm rclone.zip
 ln -f -s /root/rclone/rclone /bin/rclone
 apt install --no-install-recommends -y udisks2 libicu72 ripgrep curl mercurial xorg openbox obconf xfe mousepad w3m fuse
 rm /root/duckdb/libduckdb_static.a
-rm -rf /root/dotnet/sdk/9.0.201/DotnetTools/dotnet-format
-rm -rf /root/dotnet/sdk/9.0.201/DotnetTools/dotnet-watch
-rm -rf /root/dotnet/sdk/9.0.201/FSharp
-rm /root/dotnet/templates/9.0.3/microsoft.dotnet.web.*
+rm -rf /root/dotnet/sdk/10.0.100-rc.1.25451.107/DotnetTools/dotnet-format
+rm -rf /root/dotnet/sdk/10.0.100-rc.1.25451.107/DotnetTools/dotnet-watch
+rm -rf /root/dotnet/sdk/10.0.100-rc.1.25451.107/FSharp
+rm /root/dotnet/templates/10.0.100-rc.1.25451.107/microsoft.dotnet.web.*
 sh -c "  echo \"\$2\" >> \"\$1\" " _ /root/.xinitrc "exec openbox-session"
 rm /usr/lib/x86_64-linux-gnu/dri/crocus_dri.so
 rm /usr/lib/x86_64-linux-gnu/dri/i915_dri.so
